@@ -3,7 +3,7 @@ import streamlit.components.v1 as components
 import numpy as np
 import pickle
 import os
-import tensorflow as tf
+import onnxruntime as ort
 import pandas as pd
 from datetime import datetime, date, timedelta
 
@@ -235,11 +235,11 @@ def load_app_data():
 
 
 @st.cache_resource
+@st.cache_resource
 def load_model():
-    """Load and cache the Keras model — persists across reruns."""
-    model_path = "match_predictor_model.keras"
+    model_path = "match_predictor_model.onnx"
     if os.path.exists(model_path):
-        return tf.keras.models.load_model(model_path)
+        return ort.InferenceSession(model_path)
     return None
 
 
