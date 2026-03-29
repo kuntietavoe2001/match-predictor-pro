@@ -30,11 +30,6 @@ h1,h2,h3,h4,h5,h6{color:white!important;font-family:'Oswald',sans-serif!importan
 p,span,div{color:#e2e8f0}
 .streamlit-expanderHeader{background:#1e293b!important;border:1px solid #475569!important;border-radius:8px!important;color:white!important}
 .streamlit-expanderContent{background:#0f172a!important;border:1px solid #475569!important;border-top:none!important;border-radius:0 0 8px 8px!important}
-.login-container{display:flex;justify-content:center;align-items:center;min-height:40vh}
-.login-card{background:linear-gradient(145deg,#4a0e1e,#2d0a12);border:2px solid #6b1529;border-radius:12px;padding:3rem;max-width:420px;width:70%;box-shadow:0 25px 50px rgba(0,0,0,0.5)}
-.login-icon{font-size:4rem;text-align:center;margin-bottom:1.5rem}
-.login-title{font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;text-align:center;color:white;text-transform:uppercase;letter-spacing:2px;margin-bottom:0.5rem}
-.login-subtitle{font-size:1rem;text-align:center;color:#94a3b8;margin-bottom:2rem}
 .vs-badge{background:linear-gradient(135deg,#dc2626,#b91c1c);color:white;font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:500;padding:1rem 1.5rem;border-radius:8px;display:inline-block;box-shadow:0 8px 25px rgba(220,38,38,0.4);text-transform:uppercase;letter-spacing:2px}
 .match-info-card{background:linear-gradient(145deg,#1e293b,#0f172a);border:1px solid #475569;border-radius:12px;padding:1.25rem;text-align:center}
 .match-date-display{font-family:'Oswald',sans-serif;font-size:1.1rem;color:#dc2626;text-transform:uppercase;letter-spacing:2px}
@@ -185,17 +180,6 @@ def render_panel(side, teams, pdata):
         st.session_state[lk]=sel
     lineup=st.session_state[lk]; render_xi(team,fm,lineup); return team,lineup
 
-if "logged_in" not in st.session_state: st.session_state.logged_in=False
-if not st.session_state.logged_in:
-    st.markdown('<div class="login-container"><div class="login-card"><div class="login-icon">⚽</div><div class="login-title">Match Predictor</div><div class="login-subtitle">Sign in to access match predictions</div></div></div>', unsafe_allow_html=True)
-    c1,c2,c3=st.columns([1,2,1])
-    with c2:
-        em=st.text_input("Email",placeholder="Enter your email"); pw=st.text_input("Password",type="password",placeholder="Enter your password")
-        if st.button("Sign In",use_container_width=True):
-            if em.strip()=="user@demo.com" and pw=="demo123": st.session_state.logged_in=True; st.rerun()
-            else: st.error("Invalid credentials. Try user@demo.com / demo123")
-        st.markdown('<div style="text-align:center;margin-top:1.5rem;padding:1rem;background:rgba(255,255,255,0.05);border-radius:8px;border:1px solid rgba(107,21,41,0.3);"><p style="color:#94a3b8;font-size:0.9rem;margin:0;">Demo Credentials</p><p style="color:#dc2626;font-size:0.85rem;margin:0.5rem 0 0 0;">user@demo.com / demo123</p></div>', unsafe_allow_html=True)
-    st.stop()
 
 st.markdown('<div class="main-header"><h1>⚽ Match Predictor Pro</h1><p>Football Match Predictions with Player Analysis</p></div>', unsafe_allow_html=True)
 data=load_app_data(); model=load_model()
